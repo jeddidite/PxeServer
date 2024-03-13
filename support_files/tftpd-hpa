@@ -1,0 +1,6 @@
+# Install with sudo apt install tftp-server 
+# The edit # /etc/default/tftpd-hpa with the following 
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/var/server"
+TFTP_ADDRESS="192.168.0.1:69"
+TFTP_OPTIONS="--secure --ipv4   --verbose -m tftpd-remap.txt"
