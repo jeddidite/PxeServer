@@ -1,0 +1,10 @@
+VIDEO
+VEN_8086&DEV_0082&SUBSYS_13218086&REV
+
+MINE
+ven_17cb&dev_1103&subsys_E0BB105B&REV
+
+findstr /s E0BB105B C:\Windows\System32\DriverStore\FileRepository\*.inf
+
+In here:
+C:\Windows\System32\DriverStore\FileRepository\qcwlan64.inf_amd64_738fc1c8ef3a0106

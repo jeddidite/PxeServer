@@ -1,0 +1,52 @@
+DEFAULT vesamenu.c32
+PROMPT 0
+TIMEOUT 30000
+MENU TITLE Syslinux Boot Menu
+
+Label Windows Installers
+  MENU Label Windows Installers
+  COM32 linux.c32 images/wimboot
+  APPEND initrdfile=/images/winpe/bcd,/images/winpe/boot.sdi,scripts/menu.cmd,scripts/startnet.cmd,scripts/wait.cmd,images/winpe/boot.wim
+
+LABEL Gparted Live Boot
+  MENU LABEL Gparted Live Boot
+  KERNEL images/gparted/live/vmlinuz
+  APPEND initrd=images/gparted/live/initrd.img boot=live config components union=overlay username=user noswap noeject vga=788 fetch=http://192.168.0.1/images/gparted/live/filesystem.squashfs
+
+LABEL Install Debian 12
+  MENU LABEL Install Debian 12
+  KERNEL images/debian/install.amd/vmlinuz
+  APPEND initrd=images/debian/install.amd/initrd.gz
+
+LABEL Ubuntu Live
+  MENU LABEL Ubuntu Live
+  kernel images/ubuntu/casper/vmlinuz
+  append initrd=images/ubuntu/casper/initrd nfsroot=192.168.0.1:/var/server/images/ubuntu ro netboot=nfs boot=casper ip=dhcp ---
+
+LABEL Install Ubuntu Server
+  MENU LABEL Install Ubuntu Server
+  KERNEL images/ubuntuserver/casper/vmlinuz
+ # APPEND initrd=images/ubuntuserver/casper/initrd nfsroot=192.168.0.1:/var/server/images/ubuntuserver ro netboot=nfs boot=casper ip=dhcp
+  APPEND initrd=images/ubuntuserver/casper/initrd nfsroot=192.168.0.1:/var/server/images/ubuntuserver proto=tcp ro netboot=nfs ip=dhcp ---
+
+#LABEL Install Alpine Linux
+#  MENU LABEL Install Alpine Linux
+#  KERNEL images/alpine/vmlinuz-lts
+#  APPEND initrdfile=/images/alpine/initramfs-lts,/images/alpine/modloop-lts
+
+LABEL Boot to Legacy Grub Menu
+    MENU LABEL Boot to Legacy Grub Menu
+    KERNEL grub/i386-pc/core.0
+
+LABEL Boot to Legacy iPXE
+  MENU LABEL Boot to Legacy iPXE
+  KERNEL ipxe/ipxe.lkrn 
+  APPEND dhcp && chain ipxe/undionly.kpxe
+
+LABEL Local Boot
+  MENU LABEL ^Boot from Local Disk
+  LOCALBOOT 0
+
+LABEL Reboot
+  MENU LABEL Reboot
+  COM32 reboot.c32

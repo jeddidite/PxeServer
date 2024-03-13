@@ -1,0 +1,45 @@
+#!ipxe
+:retry_dhcp
+dhcp || goto retry_dhcp
+echo Booting wimboot
+kernel http://192.168.0.1/images/wimboot
+initrd --name startnet.cmd /scripts/startnet_uefi.cmd 
+initrd /scripts/wait.cmd
+initrd /scripts/menu.cmd
+:load_files
+initrd /images/winpe/bcd
+initrd /images/winpe/boot.sdi
+initrd http://192.168.0.1/images/winpe/boot.wim
+boot || goto load_files
+
+#:set_dhcp
+#dhcp || goto set_dhcp
+
+#:retry_dhcp
+#isset ${net0/mac} || goto set_dhcp
+
+#:menu
+#menu iPXE Boot Menu
+#item hdd Local Hard Drive
+#item netboot Network Boot
+#item rescue Rescue Mode
+
+#choose selected && goto ${selected} || goto menu
+
+#:hdd
+#echo Booting from Local Hard Drive...
+#chain http://192.168.0.1/bootloader
+
+#:netboot
+#echo Booting from Network...
+#kernel http://192.168.0.1/wimboot/wimboot
+#initrd /wimboot/bcd
+#initrd /wimboot/boot.sdi
+#initrd --name startnet.cmd /winpe/startnet_uefi.cmd
+#initrd /winpe/wait.cmd
+#initrd http://192.168.0.1/sources/boot.wim boot.wim
+#boot
+
+#:rescue
+#echo Booting into Rescue Mode...
+#chain http://192.168.0.1/rescue

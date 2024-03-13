@@ -1,0 +1,13 @@
+#!ipxe
+:retry_dhcp
+dhcp || goto retry_dhcp
+echo Booting wimboot
+kernel http://192.168.0.1/images/wimboot
+initrd --name startnet.cmd /scripts/startnet_uefi.cmd 
+initrd /scripts/wait.cmd
+initrd /scripts/menu.cmd
+:load_files
+initrd /images/winpe/bcd
+initrd /images/winpe/boot.sdi
+initrd http://192.168.0.1/images/winpe/boot.wim
+boot || goto load_files

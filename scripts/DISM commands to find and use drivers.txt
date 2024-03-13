@@ -1,0 +1,12 @@
+THIS WORKED FOR DRIVERS AND DISM
+Run getdrivers.ps 
+Make sure there is a Drivers folder in the same folder as getdrivers.ps to store them in 
+cd C:\WinPe\media   
+findstr /s E0BB105B C:\Windows\System32\DriverStore\FileRepository\*.inf
+dir C:\Windows\System32\DriverStore\FileRepository\qcwlan64.inf_amd64_738fc1c8ef3a0106\
+cd \
+dism /mount-image /imagefile:boot.wim /index:1 /mountdir:C:\temp
+cd C:\Users\slasher\Documents\WinPe\From Videos\
+dism /image:C:\temp /add-driver:Drivers /recurse
+dism /unmount-image /mountdir:C:\temp /commit
+

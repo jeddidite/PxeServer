@@ -1,0 +1,24 @@
+# Global properties
+title-text: "UEFI grub menu"
+desktop-image: "background.jpg"
+desktop-color: "#000000"
+terminal-box: "terminal_box_*.jpg"
+terminal-left: "0"
+terminal-top: "0"
+terminal-width: "100%"
+terminal-height: "100%"
+terminal-border: "0"
+
+# Boot menu
++ boot_menu {
+  left = 10%
+  top = 150
+  width = 80%
+  height = 60%
+  item_color = "#ffffff"
+  selected_item_color = "#ffffff"
+  item_height = 40
+  item_spacing = 4
+  item_pixmap_style = "item_*.jpg"
+  selected_item_pixmap_style = "select_*.jpg"
+}
